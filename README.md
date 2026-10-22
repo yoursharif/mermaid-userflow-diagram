@@ -98,7 +98,7 @@ The skill folder should be named `mermaid-userflow`, matching the `name` in `SKI
 **Claude Code**, for all your projects:
 
 ```bash
-git clone https://github.com/yoursharif/mermaid-userflow-skill.git ~/.claude/skills/mermaid-userflow
+git clone https://github.com/yoursharif/mermaid-userflow-diagram.git ~/.claude/skills/mermaid-userflow
 ```
 
 Or for one project, clone into `.claude/skills/mermaid-userflow` inside that repo.
