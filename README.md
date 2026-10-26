@@ -132,7 +132,7 @@ Checks:
 5. Every node in an edge is defined, all nodes come before edges.
 6. No orphan nodes and no dead ends. At least one start node.
 7. Every decision has two or more labelled arrows out.
-8. Connectors come in pairs, merge and junction labels are one space, only notes break lines with `<br>` (4 lines of 16 characters at most), and each note has one `style noteX text-align:left` line.
+8. Connectors come in pairs, merge and junction labels are one space, only notes break lines with `<br>` (4 lines of 16 characters at most).
 9. Every flow has a legend right after it, or one shared legend before all flows.
 10. A legend lists exactly the shapes used, in table order, labelled `Name: used for`, linked as a 3 column grid.
 11. In a saved file, the shared legend sits under the title and flow headings are numbered 1, 2, 3 with one flow each.

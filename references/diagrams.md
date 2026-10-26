@@ -123,7 +123,6 @@ flowchart TD
   dbOrder --> docReceipt
   docReceipt --> scrConfirm
   scrConfirm --> exitPlaced
-  style noteBank text-align:left
 ```
 
 ```mermaid

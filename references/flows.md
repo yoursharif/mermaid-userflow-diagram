@@ -77,7 +77,6 @@ flowchart TD
   decSession -->|Yes| exitHome
   decSession -->|No| subLogin
   noteKept -.- memSession
-  style noteKept text-align:left
 ```
 
 ## 2. Welcome
@@ -197,7 +196,6 @@ flowchart TD
   decSocialKnown -->|Yes| memSession
   decSocialKnown -->|No| subSignup
   memSession --> exitHome
-  style noteLock text-align:left
 ```
 
 ## 5. Password reset
@@ -245,7 +243,6 @@ flowchart TD
   decRules -->|Yes| dbUser
   scrRules --> inNewPassword
   dbUser --> exitHome
-  style noteSame text-align:left
 ```
 
 ## 6. First-time user

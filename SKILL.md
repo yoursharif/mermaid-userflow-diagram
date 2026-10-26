@@ -16,7 +16,7 @@ This skill is plain markdown plus one optional Python script. It works in any ag
 3. The node ID prefix sets the type, and the type sets the shape. Use the exact pair from the table.
 4. Define all nodes first, then all edges. One edge per line, no chains like `a --> b --> c`.
 5. Use one arrow, `-->`, and one edge label form, `-->|Label|`. Quote labels that contain punctuation: `-->|"No, retry"|`. The only other link is `noteX -.- nodeY` for notes.
-6. No subgraphs, `classDef`, `class`, `linkStyle`, `click`, `%%` comments or init blocks. The only `style` line allowed is `style noteX text-align:left`, one per note, after all edges.
+6. No subgraphs, `classDef`, `style`, `class`, `linkStyle`, `click`, `%%` comments or init blocks.
 7. Every node connects to something. Every path ends at an exit, sub or connector node. Every arrow out of a decision has a label.
 8. Every flow gets a legend that lists only the shapes it uses. See Legend.
 9. Before output, validate. See Validation.
@@ -55,7 +55,7 @@ Special cases:
 
 - Merge and Summing Junction nodes always have the label `" "` (one space).
 - Connectors come in pairs with the same 1 or 2 character label. One takes arrows in, the other sends them out.
-- A note links to one node with `noteX -.- nodeY`. The brace sits on the left and the text is left aligned with `style noteX text-align:left`. Add notes only when the user asks.
+- A note links to one node with `noteX -.- nodeY`. Add notes only when the user asks.
 - Three Figma symbols have no Mermaid shape: Or, Off-Page Link and the bracket Note. Use Predefined Process to jump to another flow.
 
 Prefer the common types. Most flows need only Terminator, Display, Process, Decision, Manual Input and Predefined Process. Use the others when they say something the common ones can't.
