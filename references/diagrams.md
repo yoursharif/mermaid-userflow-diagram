@@ -2,7 +2,7 @@
 
 Two complete single-flow examples, each followed by its legend. Use them as models for structure, branching and naming: rename the nodes for the product and cut what the request doesn't need.
 
-Read `shapes.md` first. Add notes only when the user asks; the one in Checkout is there to show the syntax. When you cut nodes, cut their legend entries too if no other node uses that shape.
+Read `shapes.md` first. Add notes only when the user asks; the one in each diagram is there to show the syntax. When you cut nodes, cut their legend entries too if no other node uses that shape.
 
 ## Signup
 
@@ -20,6 +20,7 @@ flowchart TD
   scrRules@{ shape: curv-trap, label: "Password rules hint" }
   dbUser@{ shape: cyl, label: "New user record" }
   docVerify@{ shape: doc, label: "Verification email" }
+  noteExpiry@{ shape: brace, label: "Link expires in 24 hours" }
   scrCheck@{ shape: curv-trap, label: "Check your email screen" }
   manOpenEmail@{ shape: trap-t, label: "Opens email app" }
   decLink@{ shape: diam, label: "Link still valid?" }
@@ -39,6 +40,7 @@ flowchart TD
   decRules -->|Yes| dbUser
   scrRules --> inDetails
   dbUser --> docVerify
+  noteExpiry -.- docVerify
   docVerify --> scrCheck
   scrCheck --> manOpenEmail
   manOpenEmail --> decLink
@@ -59,6 +61,7 @@ flowchart TD
   lgPredefinedProcess@{ shape: fr-rect, label: "Predefined Process: subflow or other flow" }
   lgDatabase@{ shape: cyl, label: "Database: saved records" }
   lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
+  lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
 
   lgTerminator ~~~ lgDecision
   lgDisplay ~~~ lgManualInput
@@ -66,11 +69,12 @@ flowchart TD
   lgDecision ~~~ lgPredefinedProcess
   lgManualInput ~~~ lgDatabase
   lgManualOperation ~~~ lgDocument
+  lgPredefinedProcess ~~~ lgCurlyBraceNote
 ```
 
 ## Checkout
 
-Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card. The note on the bank check shows the Curly Brace Note syntax.
+Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card.
 
 ```mermaid
 flowchart TD

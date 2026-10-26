@@ -17,7 +17,7 @@ Onboarding flows for a recipe app.
 
 In a saved file, the shared legend sits under the `#` title, and each flow gets a numbered `##` heading and one short line instead of the bold line. Link the flows with `sub` nodes named after each other, so a reader can follow one into the next.
 
-Below the line is a complete saved file, `onboarding.md`, exactly as it should be written. It covers everything from first launch to the home screen in 6 linked flows. The note in Password reset is there to show the syntax; add notes only when the user asks.
+Below the line is a complete saved file, `onboarding.md`, exactly as it should be written. It covers everything from first launch to the home screen in 6 linked flows. The notes in App launch, Login and Password reset are there to show the syntax; add notes only when the user asks.
 
 ---
 
@@ -62,6 +62,7 @@ flowchart TD
   startLaunch@{ shape: stadium, label: "Opens the app" }
   scrSplash@{ shape: curv-trap, label: "Splash screen" }
   memSession@{ shape: win-pane, label: "Saved session" }
+  noteKept@{ shape: brace, label: "Kept for 30 days" }
   decFirst@{ shape: diam, label: "First launch?" }
   decSession@{ shape: diam, label: "Session still valid?" }
   subWelcome@{ shape: fr-rect, label: "Welcome flow" }
@@ -75,6 +76,7 @@ flowchart TD
   decFirst -->|No| decSession
   decSession -->|Yes| exitHome
   decSession -->|No| subLogin
+  noteKept -.- memSession
 ```
 
 ## 2. Welcome
@@ -166,6 +168,7 @@ flowchart TD
   decAttempts@{ shape: diam, label: "Under 5 attempts?" }
   scrError@{ shape: curv-trap, label: "Inline error" }
   scrLocked@{ shape: curv-trap, label: "Account locked screen" }
+  noteLock@{ shape: brace, label: "Locked for 15 minutes" }
   manSocial@{ shape: trap-t, label: "Picks Google or Apple account" }
   decSocialDone@{ shape: diam, label: "Sign in completed?" }
   decSocialKnown@{ shape: diam, label: "Account exists?" }
@@ -186,6 +189,7 @@ flowchart TD
   decAttempts -->|No| scrLocked
   scrError --> inCredentials
   scrLocked --> subReset
+  noteLock -.- scrLocked
   manSocial --> decSocialDone
   decSocialDone -->|No| scrLogin
   decSocialDone -->|Yes| decSocialKnown
