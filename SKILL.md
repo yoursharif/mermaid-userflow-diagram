@@ -92,7 +92,7 @@ flowchart TD
 ## Workflow
 
 1. Name the flow and its goal. Find the start (trigger) and the outcomes (exits).
-2. Open `references/diagrams.md` if the flow is a common one. Start from the closest diagram.
+2. Open `references/diagrams.md` and use the closest example as a model.
 3. List the happy path first, then the branches: errors, empty states, edge cases.
 4. Pick each node's type from the Shapes table, then write all node lines, then all edge lines.
 5. Write the legend from the types you used.
@@ -126,8 +126,8 @@ Read only what the request needs.
 | File | Read it when |
 |---|---|
 | `references/shapes.md` | Always, first. Every shape with its Name, Used for, prefix, syntax and legend entry. |
-| `references/diagrams.md` | The flow is login, signup, password reset, onboarding, checkout, or needs empty and error branches. |
-| `references/flows.md` | The user wants several flows together, or wants them saved to a file. |
+| `references/diagrams.md` | Any single flow. Two complete examples (signup, checkout) with their legends. |
+| `references/flows.md` | The user wants several flows together, or wants them saved to a file. A full onboarding file: 6 linked flows from first launch to home, one shared legend. |
 
 ## Output format
 

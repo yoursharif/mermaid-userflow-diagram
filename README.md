@@ -85,9 +85,9 @@ The shapes use Mermaid's `id@{ shape: ... }` syntax, which needs Mermaid 11.3 or
 SKILL.md                  rules, shapes, legend, workflow, validation, library map
 references/shapes.md      every shape: Name, Used for, prefix, syntax,
                           legend entry, plus a legend of all 21
-references/diagrams.md    6 diagrams: login, signup, password reset,
-                          onboarding, checkout, empty and error branches
-references/flows.md       a saved file with 3 linked flows and a shared legend
+references/diagrams.md    2 single-flow examples: signup, checkout
+references/flows.md       a saved onboarding file: 6 linked flows from first
+                          launch to home, one shared legend
 scripts/validate.py       optional validator
 ```
 
