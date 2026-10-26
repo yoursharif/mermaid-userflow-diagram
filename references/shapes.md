@@ -2,7 +2,7 @@
 
 Every node type: its Name (the flowchart symbol), what it's Used for, its ID prefix, its Mermaid shape, a node example and its legend entry. The legend entry is always `Name: used for`, exactly as written here.
 
-Full examples of these shapes in real flows are in `diagrams.md`.
+Real flows using these shapes are in `diagrams.md` and `flows.md`.
 
 ## All shapes
 

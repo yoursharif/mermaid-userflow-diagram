@@ -70,7 +70,7 @@ Prefer the common types. Most flows need only Terminator, Display, Process, Deci
 
 ## Legend
 
-The legend is its own `mermaid` block. It lists only the shapes its flow uses, each drawn as the real shape with the label `Name: used for`.
+The legend is its own `mermaid` block. It lists only the shapes its flow uses, each drawn as the real shape with the label `Name: used for`. It goes right before its flow. With several flows, one shared legend goes before all of them.
 
 ```
 flowchart TD
@@ -109,7 +109,8 @@ For every block, before output:
 3. Every ID used in an edge is defined above it with a shape.
 4. Every edge is `a --> b`, `a -->|Label| b` or `noteX -.- b`. Nothing else.
 5. No orphans, no dead ends, at least one start node, every decision has two or more labelled arrows out.
-6. The legend lists exactly the shape types used, in table order, with the exact labels and the grid links.
+6. Connectors come in pairs, Merge and Summing Junction labels are one space, and every note links to one node with `-.-`.
+7. The legend sits right before its flow, or one shared legend before all flows, and lists exactly the shape types used, in table order, with the exact labels and the grid links.
 
 If you can run code, run the script and treat its output as the source of truth:
 
