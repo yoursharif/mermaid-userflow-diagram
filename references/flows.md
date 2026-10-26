@@ -77,6 +77,7 @@ flowchart TD
   decSession -->|Yes| exitHome
   decSession -->|No| subLogin
   noteKept -.- memSession
+  style noteKept text-align:left
 ```
 
 ## 2. Welcome
@@ -168,7 +169,7 @@ flowchart TD
   decAttempts@{ shape: diam, label: "Under 5 attempts?" }
   scrError@{ shape: curv-trap, label: "Inline error" }
   scrLocked@{ shape: curv-trap, label: "Account locked screen" }
-  noteLock@{ shape: brace, label: "Locked for 15 minutes" }
+  noteLock@{ shape: brace-r, label: "Locked for<br>15 minutes" }
   manSocial@{ shape: trap-t, label: "Picks Google or Apple account" }
   decSocialDone@{ shape: diam, label: "Sign in completed?" }
   decSocialKnown@{ shape: diam, label: "Account exists?" }
@@ -196,6 +197,7 @@ flowchart TD
   decSocialKnown -->|Yes| memSession
   decSocialKnown -->|No| subSignup
   memSession --> exitHome
+  style noteLock text-align:left
 ```
 
 ## 5. Password reset
@@ -211,7 +213,7 @@ flowchart TD
   decKnown@{ shape: diam, label: "Email registered?" }
   docReset@{ shape: doc, label: "Reset email" }
   scrCheck@{ shape: curv-trap, label: "Check your email screen" }
-  noteSame@{ shape: brace, label: "Same message for every email<br>so it never reveals<br>who has an account" }
+  noteSame@{ shape: brace, label: "Same message<br>for every email<br>so no one learns<br>who signed up" }
   waitEmail@{ shape: delay, label: "Waits for email" }
   manOpenEmail@{ shape: trap-t, label: "Opens email app" }
   decLink@{ shape: diam, label: "Link still valid?" }
@@ -243,6 +245,7 @@ flowchart TD
   decRules -->|Yes| dbUser
   scrRules --> inNewPassword
   dbUser --> exitHome
+  style noteSame text-align:left
 ```
 
 ## 6. First-time user

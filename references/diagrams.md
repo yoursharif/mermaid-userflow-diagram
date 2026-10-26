@@ -90,7 +90,7 @@ flowchart TD
   actPlace@{ shape: rect, label: "Taps Place order" }
   ioCharge@{ shape: lean-r, label: "Charges card" }
   waitBank@{ shape: delay, label: "Waits for bank check" }
-  noteBank@{ shape: brace, label: "May open the bank app" }
+  noteBank@{ shape: brace, label: "May open<br>the bank app" }
   decPaid@{ shape: diam, label: "Payment approved?" }
   scrDeclined@{ shape: curv-trap, label: "Card declined message" }
   dbOrder@{ shape: cyl, label: "New order record" }
@@ -123,6 +123,7 @@ flowchart TD
   dbOrder --> docReceipt
   docReceipt --> scrConfirm
   scrConfirm --> exitPlaced
+  style noteBank text-align:left
 ```
 
 ```mermaid

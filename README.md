@@ -67,7 +67,7 @@ It is plain markdown plus one optional Python script, so it works with any agent
 | Merge | two paths rejoin | `merge` | `flip-tri` |
 | Summing Junction | three or more paths rejoin | `sum` | `cross-circ` |
 | Connector | jump within the flow | `con` | `circle` |
-| Curly Brace Note | comment on a node | `note` | `brace` |
+| Curly Brace Note | comment on a node | `note` | `brace` or `brace-r` |
 
 Every shape, drawn as a legend, with details and syntax: [references/shapes.md](references/shapes.md).
 
@@ -132,7 +132,7 @@ Checks:
 5. Every node in an edge is defined, all nodes come before edges.
 6. No orphan nodes and no dead ends. At least one start node.
 7. Every decision has two or more labelled arrows out.
-8. Connectors come in pairs, merge and junction labels are one space, only notes break lines with `<br>` (3 lines at most).
+8. Connectors come in pairs, merge and junction labels are one space, only notes break lines with `<br>` (4 lines of 16 characters at most), and each note has one `style noteX text-align:left` line.
 9. Every flow has a legend right after it, or one shared legend before all flows.
 10. A legend lists exactly the shapes used, in table order, labelled `Name: used for`, linked as a 3 column grid.
 11. In a saved file, the shared legend sits under the title and flow headings are numbered 1, 2, 3 with one flow each.

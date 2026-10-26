@@ -16,7 +16,7 @@ This skill is plain markdown plus one optional Python script. It works in any ag
 3. The node ID prefix sets the type, and the type sets the shape. Use the exact pair from the table.
 4. Define all nodes first, then all edges. One edge per line, no chains like `a --> b --> c`.
 5. Use one arrow, `-->`, and one edge label form, `-->|Label|`. Quote labels that contain punctuation: `-->|"No, retry"|`. The only other link is `noteX -.- nodeY` for notes.
-6. No subgraphs, `classDef`, `style`, `class`, `linkStyle`, `click`, `%%` comments or init blocks.
+6. No subgraphs, `classDef`, `class`, `linkStyle`, `click`, `%%` comments or init blocks. The only `style` line allowed is `style noteX text-align:left`, one per note, after all edges.
 7. Every node connects to something. Every path ends at an exit, sub or connector node. Every arrow out of a decision has a label.
 8. Every flow gets a legend that lists only the shapes it uses. See Legend.
 9. Before output, validate. See Validation.
@@ -49,13 +49,13 @@ Every shape comes from the standard flowchart symbol set (ISO 5807, as in the Fi
 | Merge | two paths rejoin | `merge` | `flip-tri` |
 | Summing Junction | three or more paths rejoin | `sum` | `cross-circ` |
 | Connector | jump within the flow | `con` | `circle` |
-| Curly Brace Note | comment on a node | `note` | `brace` |
+| Curly Brace Note | comment on a node | `note` | `brace` or `brace-r` |
 
 Special cases:
 
 - Merge and Summing Junction nodes always have the label `" "` (one space).
 - Connectors come in pairs with the same 1 or 2 character label. One takes arrows in, the other sends them out.
-- A note links to one node with `noteX -.- nodeY`. Add notes only when the user asks.
+- A note links to one node with `noteX -.- nodeY`. Use `brace` for a brace on the left or `brace-r` for one on the right. Either way its text is left aligned with `style noteX text-align:left`. Add notes only when the user asks.
 - Three Figma symbols have no Mermaid shape: Or, Off-Page Link and the bracket Note. Use Predefined Process to jump to another flow.
 
 Prefer the common types. Most flows need only Terminator, Display, Process, Decision, Manual Input and Predefined Process. Use the others when they say something the common ones can't.
@@ -64,7 +64,7 @@ Prefer the common types. Most flows need only Terminator, Display, Process, Deci
 
 - **IDs**: prefix plus a PascalCase name, letters and digits only. `scrLogin`, `decEmailValid`, `inPassword`. Unique within the block.
 - **Node labels**: double quoted, 6 words or fewer, sentence case. No `"`, `<`, `>`, `#`, `|` or backticks.
-- **Note labels** may run to 3 lines, split with `<br>`, each line 6 words or fewer: `"Same message for every email<br>so it never reveals<br>who has an account"`. Only notes may use `<br>`.
+- **Note labels** may run to 4 lines, split with `<br>`, each line 16 characters or fewer so Mermaid doesn't wrap it again: `"Same message<br>for every email<br>so no one learns<br>who signed up"`. Only notes may use `<br>`.
 - **Screens** are nouns: "Login screen", "Order summary". **Steps** start with a verb: "Taps Sign in", "Sends reset link". **Decisions** end with a question mark: "Email registered?"
 - **Edge labels**: 4 words or fewer. Decisions use Yes and No unless the options need names.
 

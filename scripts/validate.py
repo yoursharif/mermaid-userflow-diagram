@@ -69,7 +69,9 @@ def expected_legend(names):
 BLANK_LABEL = {"merge", "sum"}      # label is a single space
 END_TYPES = {"exit", "sub", "con"}  # allowed to have no outgoing arrow
 MAX_NODE_WORDS = 6
-MAX_NOTE_LINES = 3
+MAX_NOTE_LINES = 4
+MAX_NOTE_CHARS = 16           # wider lines get re-wrapped by Mermaid
+NOTE_SHAPES = {"brace", "brace-r"}  # brace on the left or the right
 MAX_EDGE_WORDS = 4
 
 HEADER_RE = re.compile(r"^flowchart (TD|LR)$")
@@ -77,6 +79,7 @@ ID = r"[a-z]+[A-Z][A-Za-z0-9]*"
 NODE_RE = re.compile(
     r'^(?P<id>' + ID + r')@\{ shape: (?P<shape>[a-z-]+), label: "(?P<label>[^"]*)" \}$'
 )
+STYLE_RE = re.compile(r"^style (?P<id>note[A-Z][A-Za-z0-9]*) text-align:left$")
 EDGE_RE = re.compile(
     r'^(?P<a>' + ID + r') (?P<arrow>-->|-\.-)'
     r'(?:\|(?P<label>"[^"|]+"|[^"|]+)\|)? (?P<b>' + ID + r')$'
@@ -97,6 +100,8 @@ def check_flow(lines, start_line):
     nodes = {}          # id -> (line_no, prefix, label)
     edges = []          # (line_no, a, arrow, label, b)
     seen_edge = False
+    styled = {}         # note id -> line_no of its style line
+    seen_style = False
 
     content = [(start_line + i, l.rstrip()) for i, l in enumerate(lines)]
     content = [(n, l) for n, l in content if l.strip()]
@@ -113,12 +118,15 @@ def check_flow(lines, start_line):
         if m:
             nid, shape, label = m.group("id"), m.group("shape"), m.group("label")
             p = prefix_of(nid)
-            if seen_edge:
+            if seen_edge or seen_style:
                 errors.append((n, f"node '{nid}' defined after the first edge; define all nodes first"))
             if nid in nodes:
                 errors.append((n, f"node '{nid}' defined twice"))
             if p not in SHAPES:
                 errors.append((n, f"'{nid}' has unknown prefix '{p}'"))
+            elif p == "note":
+                if shape not in NOTE_SHAPES:
+                    errors.append((n, f"note '{nid}' must use shape brace or brace-r, not {shape}"))
             elif SHAPES[p] != shape:
                 errors.append((n, f"'{nid}' is a '{p}' node and must use shape {SHAPES[p]}, not {shape}"))
             if p in BLANK_LABEL:
@@ -139,14 +147,26 @@ def check_flow(lines, start_line):
                                       + (" (only notes may use <br>)" if "<br>" in label else "")))
                 if p == "con" and len(label) > 2:
                     errors.append((n, f"connector '{nid}' label must be 1 or 2 characters"))
-                if any(len(x.split()) > MAX_NODE_WORDS for x in lines):
-                    warnings.append((n, f"'{nid}' label is over {MAX_NODE_WORDS} words"
-                                        + (" on a line" if p == "note" else "")))
+                if p == "note":
+                    if any(len(x) > MAX_NOTE_CHARS for x in lines):
+                        errors.append((n, f"note '{nid}' has a line over {MAX_NOTE_CHARS} characters; split it with <br>"))
+                elif len(label.split()) > MAX_NODE_WORDS:
+                    warnings.append((n, f"'{nid}' label is over {MAX_NODE_WORDS} words"))
             nodes[nid] = (n, p, label)
+            continue
+
+        m = STYLE_RE.match(line)
+        if m:
+            seen_style = True
+            if m.group("id") in styled:
+                errors.append((n, f"note '{m.group('id')}' has two style lines"))
+            styled[m.group("id")] = n
             continue
 
         m = EDGE_RE.match(line)
         if m:
+            if seen_style:
+                errors.append((n, "style lines come last, after every edge"))
             seen_edge = True
             label = m.group("label")
             if label is not None:
@@ -167,7 +187,9 @@ def check_flow(lines, start_line):
             continue
 
         # Not a node, not an edge. Explain the most likely cause.
-        if re.match(r"^(subgraph|end|classDef|class|style|linkStyle|click|direction)\b", line) \
+        if line.startswith("style "):
+            errors.append((n, f"the only style line allowed is 'style noteX text-align:left': '{line}'"))
+        elif re.match(r"^(subgraph|end|classDef|class|linkStyle|click|direction)\b", line) \
                 or line.startswith("%%") or ":::" in line:
             errors.append((n, f"not allowed in this skill: '{line}'"))
         elif re.search(r"--\s+\S.*-->|==>|-\.->|--[ox]\b|<-->|---", line):
@@ -188,6 +210,14 @@ def check_flow(lines, start_line):
                 errors.append((n, f"bad ID '{mid.group(0)}': use a lowercase prefix plus PascalCase name, like scrLogin"))
             else:
                 errors.append((n, f"unrecognised line: '{line}'"))
+
+    # Every note is left aligned by exactly one style line.
+    for nid, (n, p, _) in nodes.items():
+        if p == "note" and nid not in styled:
+            errors.append((n, f"note '{nid}' needs 'style {nid} text-align:left' after the edges"))
+    for nid, n in styled.items():
+        if nid not in nodes:
+            errors.append((n, f"style line for '{nid}', which is not a defined note"))
 
     # Graph checks.
     out_arrows = {k: 0 for k in nodes}
