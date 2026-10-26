@@ -168,7 +168,7 @@ flowchart TD
   decAttempts@{ shape: diam, label: "Under 5 attempts?" }
   scrError@{ shape: curv-trap, label: "Inline error" }
   scrLocked@{ shape: curv-trap, label: "Account locked screen" }
-  noteLock@{ shape: brace, label: "Locked for<br>15 minutes" }
+  noteLock@{ shape: brace, label: "Locked for 15 minutes" }
   manSocial@{ shape: trap-t, label: "Picks Google or Apple account" }
   decSocialDone@{ shape: diam, label: "Sign in completed?" }
   decSocialKnown@{ shape: diam, label: "Account exists?" }
@@ -200,7 +200,7 @@ flowchart TD
 
 ## 5. Password reset
 
-User resets a forgotten password by email link. A multiline note explains why the same message shows whether or not the email is registered.
+User resets a forgotten password by email link. A note marks that the same message shows whether or not the email is registered.
 
 ```mermaid
 flowchart TD
@@ -211,7 +211,7 @@ flowchart TD
   decKnown@{ shape: diam, label: "Email registered?" }
   docReset@{ shape: doc, label: "Reset email" }
   scrCheck@{ shape: curv-trap, label: "Check your email screen" }
-  noteSame@{ shape: brace, label: "Same message<br>for every email<br>so no one learns<br>who signed up" }
+  noteSame@{ shape: brace, label: "Same message for every email" }
   waitEmail@{ shape: delay, label: "Waits for email" }
   manOpenEmail@{ shape: trap-t, label: "Opens email app" }
   decLink@{ shape: diam, label: "Link still valid?" }

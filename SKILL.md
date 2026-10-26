@@ -64,7 +64,7 @@ Prefer the common types. Most flows need only Terminator, Display, Process, Deci
 
 - **IDs**: prefix plus a PascalCase name, letters and digits only. `scrLogin`, `decEmailValid`, `inPassword`. Unique within the block.
 - **Node labels**: double quoted, 6 words or fewer, sentence case. No `"`, `<`, `>`, `#`, `|` or backticks.
-- **Note labels** may run to 4 lines, split with `<br>`, each line 16 characters or fewer so Mermaid doesn't wrap it again: `"Same message<br>for every email<br>so no one learns<br>who signed up"`. Only notes may use `<br>`.
+- **Note labels** follow the same rules as any other label. Mermaid wraps and centres them.
 - **Screens** are nouns: "Login screen", "Order summary". **Steps** start with a verb: "Taps Sign in", "Sends reset link". **Decisions** end with a question mark: "Email registered?"
 - **Edge labels**: 4 words or fewer. Decisions use Yes and No unless the options need names.
 
