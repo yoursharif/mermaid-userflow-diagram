@@ -6,6 +6,20 @@ Every node uses a fixed shape for its type, taken from the standard flowchart sy
 
 ```mermaid
 flowchart TD
+  lgTerminator@{ shape: stadium, label: "Terminator: start or end" }
+  lgDisplay@{ shape: curv-trap, label: "Display: screen or page" }
+  lgDecision@{ shape: diam, label: "Decision: yes or no question" }
+  lgManualInput@{ shape: sl-rect, label: "Manual Input: user enters data" }
+  lgManualOperation@{ shape: trap-t, label: "Manual Operation: user acts outside the app" }
+  lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
+
+  lgTerminator ~~~ lgManualInput
+  lgDisplay ~~~ lgManualOperation
+  lgDecision ~~~ lgDocument
+```
+
+```mermaid
+flowchart TD
   startForgot@{ shape: stadium, label: "Taps Forgot password" }
   scrForgot@{ shape: curv-trap, label: "Forgot password screen" }
   inEmail@{ shape: sl-rect, label: "Enters email" }
@@ -25,20 +39,6 @@ flowchart TD
   decLink -->|No| scrExpired
   scrExpired --> scrForgot
   inNewPassword --> exitSignedIn
-```
-
-```mermaid
-flowchart TD
-  lgTerminator@{ shape: stadium, label: "Terminator: start or end" }
-  lgDisplay@{ shape: curv-trap, label: "Display: screen or page" }
-  lgDecision@{ shape: diam, label: "Decision: yes or no question" }
-  lgManualInput@{ shape: sl-rect, label: "Manual Input: user enters data" }
-  lgManualOperation@{ shape: trap-t, label: "Manual Operation: user acts outside the app" }
-  lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
-
-  lgTerminator ~~~ lgManualInput
-  lgDisplay ~~~ lgManualOperation
-  lgDecision ~~~ lgDocument
 ```
 
 It is plain markdown plus one optional Python script, so it works with any agent that can read files.
@@ -73,7 +73,7 @@ Every shape, drawn as a legend, with details and syntax: [references/shapes.md](
 
 ## Legend
 
-Every flow gets a legend: a second Mermaid block listing only the shapes that flow uses, each drawn as the real shape and labelled `Name: used for`. It's laid out as a 3 column grid. When several flows go together, in one reply or one saved file, they share one legend at the start.
+Every flow gets a legend: a Mermaid block above the flow listing only the shapes that flow uses, each drawn as the real shape and labelled `Name: used for`. It's laid out as a 3 column grid. When several flows go together, in one reply or one saved file, they share one legend at the start.
 
 ## Requirements
 
@@ -133,7 +133,7 @@ Checks:
 6. No orphan nodes and no dead ends. At least one start node.
 7. Every decision has two or more labelled arrows out.
 8. Connectors come in pairs, merge and junction labels are one space.
-9. Every flow has a legend right after it, or one shared legend before all flows.
+9. Every flow has a legend right before it, or one shared legend before all flows.
 10. A legend lists exactly the shapes used, in table order, labelled `Name: used for`, linked as a 3 column grid.
 11. In a saved file, the shared legend sits under the title and flow headings are numbered 1, 2, 3 with one flow each.
 

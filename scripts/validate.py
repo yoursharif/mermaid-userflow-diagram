@@ -7,7 +7,7 @@ Usage:
 
 A .md file is checked block by block: every fenced block labelled mermaid.
 A block whose node IDs all start with lg is a legend. Every flow in a .md
-file needs a legend: right after it, or one shared legend before all flows.
+file needs a legend: right before it, or one shared legend before all flows.
 Any other file, or stdin, is treated as one flow and needs no legend.
 Exits 1 if any block has an error, 0 otherwise. Warnings never fail.
 """
@@ -357,8 +357,9 @@ def check_numbered_headings(text, legend_lines):
 
 def check_coverage(blocks):
     """blocks: list of (start, kind, names). Every flow needs a legend that
-    lists exactly the shapes it uses. Either each flow is followed by its own
-    legend, or one legend comes first and covers every flow after it."""
+    lists exactly the shapes it uses, placed before it. Either each flow has
+    its own legend right before it, or one legend comes first and covers
+    every flow after it."""
     errors = []
     flows = [b for b in blocks if b[1] == "flow"]
     legends = [b for b in blocks if b[1] == "legend"]
@@ -373,11 +374,11 @@ def check_coverage(blocks):
     for k, (start, kind, names) in enumerate(blocks):
         if kind != "flow":
             continue
-        nxt = blocks[k + 1] if k + 1 < len(blocks) else None
-        if not nxt or nxt[1] != "legend":
-            errors.append((start, "flow needs a legend block right after it, or one shared legend before all flows"))
-        elif nxt[2] != names:
-            errors.append((nxt[0], _diff("legend", names, nxt[2])))
+        prev = blocks[k - 1] if k > 0 else None
+        if not prev or prev[1] != "legend":
+            errors.append((start, "flow needs a legend block right before it, or one shared legend before all flows"))
+        elif prev[2] != names:
+            errors.append((prev[0], _diff("legend", names, prev[2])))
     return errors
 
 

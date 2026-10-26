@@ -1,12 +1,32 @@
 # Diagrams
 
-Two complete single-flow examples, each followed by its legend. Use them as models for structure, branching and naming: rename the nodes for the product and cut what the request doesn't need.
+Two complete single-flow examples, each with its legend above the flow. Use them as models for structure, branching and naming: rename the nodes for the product and cut what the request doesn't need.
 
 Read `shapes.md` first. Add notes only when the user asks; the one in Checkout is there to show the syntax. When you cut nodes, cut their legend entries too if no other node uses that shape.
 
 ## Signup
 
 Email sign up with an existing account check, password rules and email verification.
+
+```mermaid
+flowchart TD
+  lgTerminator@{ shape: stadium, label: "Terminator: start or end" }
+  lgDisplay@{ shape: curv-trap, label: "Display: screen or page" }
+  lgProcess@{ shape: rect, label: "Process: step or action" }
+  lgDecision@{ shape: diam, label: "Decision: yes or no question" }
+  lgManualInput@{ shape: sl-rect, label: "Manual Input: user enters data" }
+  lgManualOperation@{ shape: trap-t, label: "Manual Operation: user acts outside the app" }
+  lgPredefinedProcess@{ shape: fr-rect, label: "Predefined Process: subflow or other flow" }
+  lgDatabase@{ shape: cyl, label: "Database: saved records" }
+  lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
+
+  lgTerminator ~~~ lgDecision
+  lgDisplay ~~~ lgManualInput
+  lgProcess ~~~ lgManualOperation
+  lgDecision ~~~ lgPredefinedProcess
+  lgManualInput ~~~ lgDatabase
+  lgManualOperation ~~~ lgDocument
+```
 
 ```mermaid
 flowchart TD
@@ -48,6 +68,10 @@ flowchart TD
   actResend --> docVerify
 ```
 
+## Checkout
+
+Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card.
+
 ```mermaid
 flowchart TD
   lgTerminator@{ shape: stadium, label: "Terminator: start or end" }
@@ -55,22 +79,26 @@ flowchart TD
   lgProcess@{ shape: rect, label: "Process: step or action" }
   lgDecision@{ shape: diam, label: "Decision: yes or no question" }
   lgManualInput@{ shape: sl-rect, label: "Manual Input: user enters data" }
-  lgManualOperation@{ shape: trap-t, label: "Manual Operation: user acts outside the app" }
   lgPredefinedProcess@{ shape: fr-rect, label: "Predefined Process: subflow or other flow" }
+  lgPreparation@{ shape: hex, label: "Preparation: setup before a step" }
+  lgDelay@{ shape: delay, label: "Delay: waiting" }
+  lgDataIO@{ shape: lean-r, label: "Data (I/O): data in or out" }
   lgDatabase@{ shape: cyl, label: "Database: saved records" }
   lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
+  lgMerge@{ shape: flip-tri, label: "Merge: two paths rejoin" }
+  lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
 
   lgTerminator ~~~ lgDecision
   lgDisplay ~~~ lgManualInput
-  lgProcess ~~~ lgManualOperation
-  lgDecision ~~~ lgPredefinedProcess
-  lgManualInput ~~~ lgDatabase
-  lgManualOperation ~~~ lgDocument
+  lgProcess ~~~ lgPredefinedProcess
+  lgDecision ~~~ lgPreparation
+  lgManualInput ~~~ lgDelay
+  lgPredefinedProcess ~~~ lgDataIO
+  lgPreparation ~~~ lgDatabase
+  lgDelay ~~~ lgDocument
+  lgDataIO ~~~ lgMerge
+  lgDatabase ~~~ lgCurlyBraceNote
 ```
-
-## Checkout
-
-Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card.
 
 ```mermaid
 flowchart TD
@@ -123,32 +151,4 @@ flowchart TD
   dbOrder --> docReceipt
   docReceipt --> scrConfirm
   scrConfirm --> exitPlaced
-```
-
-```mermaid
-flowchart TD
-  lgTerminator@{ shape: stadium, label: "Terminator: start or end" }
-  lgDisplay@{ shape: curv-trap, label: "Display: screen or page" }
-  lgProcess@{ shape: rect, label: "Process: step or action" }
-  lgDecision@{ shape: diam, label: "Decision: yes or no question" }
-  lgManualInput@{ shape: sl-rect, label: "Manual Input: user enters data" }
-  lgPredefinedProcess@{ shape: fr-rect, label: "Predefined Process: subflow or other flow" }
-  lgPreparation@{ shape: hex, label: "Preparation: setup before a step" }
-  lgDelay@{ shape: delay, label: "Delay: waiting" }
-  lgDataIO@{ shape: lean-r, label: "Data (I/O): data in or out" }
-  lgDatabase@{ shape: cyl, label: "Database: saved records" }
-  lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
-  lgMerge@{ shape: flip-tri, label: "Merge: two paths rejoin" }
-  lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
-
-  lgTerminator ~~~ lgDecision
-  lgDisplay ~~~ lgManualInput
-  lgProcess ~~~ lgPredefinedProcess
-  lgDecision ~~~ lgPreparation
-  lgManualInput ~~~ lgDelay
-  lgPredefinedProcess ~~~ lgDataIO
-  lgPreparation ~~~ lgDatabase
-  lgDelay ~~~ lgDocument
-  lgDataIO ~~~ lgMerge
-  lgDatabase ~~~ lgCurlyBraceNote
 ```

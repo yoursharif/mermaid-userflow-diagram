@@ -135,8 +135,8 @@ Read only what the request needs.
 Reply with exactly this, nothing else:
 
 1. One line naming the flow, 10 words or fewer. For example: Password reset, with expired link branch.
-2. The flow in a fenced code block labelled `mermaid`.
-3. The legend in its own `mermaid` block.
+2. The legend in its own `mermaid` block.
+3. The flow in a fenced code block labelled `mermaid`.
 
 No summary, explanation or follow-up question after the blocks, unless the user asks for one. When asked to change a flow, rewrite its whole block, update the legend if the shapes changed, and validate again.
 
