@@ -71,7 +71,6 @@ END_TYPES = {"exit", "sub", "con"}  # allowed to have no outgoing arrow
 MAX_NODE_WORDS = 6
 MAX_NOTE_LINES = 4
 MAX_NOTE_CHARS = 16           # wider lines get re-wrapped by Mermaid
-NOTE_SHAPES = {"brace", "brace-r"}  # brace on the left or the right
 MAX_EDGE_WORDS = 4
 
 HEADER_RE = re.compile(r"^flowchart (TD|LR)$")
@@ -124,9 +123,6 @@ def check_flow(lines, start_line):
                 errors.append((n, f"node '{nid}' defined twice"))
             if p not in SHAPES:
                 errors.append((n, f"'{nid}' has unknown prefix '{p}'"))
-            elif p == "note":
-                if shape not in NOTE_SHAPES:
-                    errors.append((n, f"note '{nid}' must use shape brace or brace-r, not {shape}"))
             elif SHAPES[p] != shape:
                 errors.append((n, f"'{nid}' is a '{p}' node and must use shape {SHAPES[p]}, not {shape}"))
             if p in BLANK_LABEL:

@@ -49,13 +49,13 @@ Every shape comes from the standard flowchart symbol set (ISO 5807, as in the Fi
 | Merge | two paths rejoin | `merge` | `flip-tri` |
 | Summing Junction | three or more paths rejoin | `sum` | `cross-circ` |
 | Connector | jump within the flow | `con` | `circle` |
-| Curly Brace Note | comment on a node | `note` | `brace` or `brace-r` |
+| Curly Brace Note | comment on a node | `note` | `brace` |
 
 Special cases:
 
 - Merge and Summing Junction nodes always have the label `" "` (one space).
 - Connectors come in pairs with the same 1 or 2 character label. One takes arrows in, the other sends them out.
-- A note links to one node with `noteX -.- nodeY`. Use `brace` for a brace on the left or `brace-r` for one on the right. Either way its text is left aligned with `style noteX text-align:left`. Add notes only when the user asks.
+- A note links to one node with `noteX -.- nodeY`. The brace sits on the left and the text is left aligned with `style noteX text-align:left`. Add notes only when the user asks.
 - Three Figma symbols have no Mermaid shape: Or, Off-Page Link and the bracket Note. Use Predefined Process to jump to another flow.
 
 Prefer the common types. Most flows need only Terminator, Display, Process, Decision, Manual Input and Predefined Process. Use the others when they say something the common ones can't.

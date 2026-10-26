@@ -169,7 +169,7 @@ flowchart TD
   decAttempts@{ shape: diam, label: "Under 5 attempts?" }
   scrError@{ shape: curv-trap, label: "Inline error" }
   scrLocked@{ shape: curv-trap, label: "Account locked screen" }
-  noteLock@{ shape: brace-r, label: "Locked for<br>15 minutes" }
+  noteLock@{ shape: brace, label: "Locked for<br>15 minutes" }
   manSocial@{ shape: trap-t, label: "Picks Google or Apple account" }
   decSocialDone@{ shape: diam, label: "Sign in completed?" }
   decSocialKnown@{ shape: diam, label: "Account exists?" }

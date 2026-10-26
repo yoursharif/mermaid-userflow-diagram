@@ -67,7 +67,7 @@ It is plain markdown plus one optional Python script, so it works with any agent
 | Merge | two paths rejoin | `merge` | `flip-tri` |
 | Summing Junction | three or more paths rejoin | `sum` | `cross-circ` |
 | Connector | jump within the flow | `con` | `circle` |
-| Curly Brace Note | comment on a node | `note` | `brace` or `brace-r` |
+| Curly Brace Note | comment on a node | `note` | `brace` |
 
 Every shape, drawn as a legend, with details and syntax: [references/shapes.md](references/shapes.md).
 
