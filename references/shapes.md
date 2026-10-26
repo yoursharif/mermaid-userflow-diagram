@@ -319,11 +319,13 @@ lgConnector@{ shape: circle, label: "Connector: jump within the flow" }
 - **Used for:** comment on a node
 - **Prefix:** `note`. **Mermaid shape:** `brace`
 
-A comment on one node. Link it with `-.-`, never with an arrow, and never label the link. Use notes only when the user asks for them.
+A comment on one node. Link it with `-.-`, never with an arrow, and never label the link. Use notes only when the user asks for them. A note may run to 3 lines, split with `<br>`, each line 6 words or fewer. Only notes may use `<br>`.
 
 ```
 noteOnce@{ shape: brace, label: "Shown only once" }
 noteOnce -.- scrTour
+noteSame@{ shape: brace, label: "Same message for every email<br>so it never reveals<br>who has an account" }
+noteSame -.- scrCheck
 lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
 ```
 

@@ -200,7 +200,7 @@ flowchart TD
 
 ## 5. Password reset
 
-User resets a forgotten password by email link. A note marks that the same message shows whether or not the email is registered.
+User resets a forgotten password by email link. A multiline note explains why the same message shows whether or not the email is registered.
 
 ```mermaid
 flowchart TD
@@ -211,7 +211,7 @@ flowchart TD
   decKnown@{ shape: diam, label: "Email registered?" }
   docReset@{ shape: doc, label: "Reset email" }
   scrCheck@{ shape: curv-trap, label: "Check your email screen" }
-  noteSame@{ shape: brace, label: "Same message for every email" }
+  noteSame@{ shape: brace, label: "Same message for every email<br>so it never reveals<br>who has an account" }
   waitEmail@{ shape: delay, label: "Waits for email" }
   manOpenEmail@{ shape: trap-t, label: "Opens email app" }
   decLink@{ shape: diam, label: "Link still valid?" }

@@ -69,6 +69,7 @@ def expected_legend(names):
 BLANK_LABEL = {"merge", "sum"}      # label is a single space
 END_TYPES = {"exit", "sub", "con"}  # allowed to have no outgoing arrow
 MAX_NODE_WORDS = 6
+MAX_NOTE_LINES = 3
 MAX_EDGE_WORDS = 4
 
 HEADER_RE = re.compile(r"^flowchart (TD|LR)$")
@@ -126,13 +127,21 @@ def check_flow(lines, start_line):
             else:
                 if not label.strip():
                     errors.append((n, f"'{nid}' needs a label"))
-                bad = FORBIDDEN_LABEL_CHARS & set(label)
+                # Only notes may break lines, with <br>.
+                lines = label.split("<br>") if p == "note" else [label]
+                if p == "note" and len(lines) > MAX_NOTE_LINES:
+                    errors.append((n, f"note '{nid}' has over {MAX_NOTE_LINES} lines"))
+                if p == "note" and any(not x.strip() for x in lines):
+                    errors.append((n, f"note '{nid}' has an empty line"))
+                bad = FORBIDDEN_LABEL_CHARS & set("".join(lines))
                 if bad:
-                    errors.append((n, f"'{nid}' label contains {''.join(sorted(bad))}"))
+                    errors.append((n, f"'{nid}' label contains {''.join(sorted(bad))}"
+                                      + (" (only notes may use <br>)" if "<br>" in label else "")))
                 if p == "con" and len(label) > 2:
                     errors.append((n, f"connector '{nid}' label must be 1 or 2 characters"))
-                if len(label.split()) > MAX_NODE_WORDS:
-                    warnings.append((n, f"'{nid}' label is over {MAX_NODE_WORDS} words"))
+                if any(len(x.split()) > MAX_NODE_WORDS for x in lines):
+                    warnings.append((n, f"'{nid}' label is over {MAX_NODE_WORDS} words"
+                                        + (" on a line" if p == "note" else "")))
             nodes[nid] = (n, p, label)
             continue
 

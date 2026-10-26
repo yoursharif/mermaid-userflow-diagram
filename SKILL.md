@@ -64,6 +64,7 @@ Prefer the common types. Most flows need only Terminator, Display, Process, Deci
 
 - **IDs**: prefix plus a PascalCase name, letters and digits only. `scrLogin`, `decEmailValid`, `inPassword`. Unique within the block.
 - **Node labels**: double quoted, 6 words or fewer, sentence case. No `"`, `<`, `>`, `#`, `|` or backticks.
+- **Note labels** may run to 3 lines, split with `<br>`, each line 6 words or fewer: `"Same message for every email<br>so it never reveals<br>who has an account"`. Only notes may use `<br>`.
 - **Screens** are nouns: "Login screen", "Order summary". **Steps** start with a verb: "Taps Sign in", "Sends reset link". **Decisions** end with a question mark: "Email registered?"
 - **Edge labels**: 4 words or fewer. Decisions use Yes and No unless the options need names.
 
