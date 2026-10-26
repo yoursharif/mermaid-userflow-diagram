@@ -17,7 +17,7 @@ Onboarding flows for a recipe app.
 
 In a saved file, the shared legend sits under the `#` title, and each flow gets a numbered `##` heading and one short line instead of the bold line. Link the flows with `sub` nodes named after each other, so a reader can follow one into the next.
 
-Below the line is a complete saved file, `onboarding.md`, exactly as it should be written. It covers everything from first launch to the home screen in 6 linked flows.
+Below the line is a complete saved file, `onboarding.md`, exactly as it should be written. It covers everything from first launch to the home screen in 6 linked flows. The note in Password reset is there to show the syntax; add notes only when the user asks.
 
 ---
 
@@ -38,6 +38,7 @@ flowchart TD
   lgInternalStorage@{ shape: win-pane, label: "Internal Storage: session or cache" }
   lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
   lgMerge@{ shape: flip-tri, label: "Merge: two paths rejoin" }
+  lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
 
   lgTerminator ~~~ lgDecision
   lgDisplay ~~~ lgManualInput
@@ -49,6 +50,7 @@ flowchart TD
   lgPreparation ~~~ lgInternalStorage
   lgDelay ~~~ lgDocument
   lgDatabase ~~~ lgMerge
+  lgInternalStorage ~~~ lgCurlyBraceNote
 ```
 
 ## 1. App launch
@@ -194,7 +196,7 @@ flowchart TD
 
 ## 5. Password reset
 
-User resets a forgotten password by email link. The same message shows whether or not the email is registered.
+User resets a forgotten password by email link. A note marks that the same message shows whether or not the email is registered.
 
 ```mermaid
 flowchart TD
@@ -205,6 +207,7 @@ flowchart TD
   decKnown@{ shape: diam, label: "Email registered?" }
   docReset@{ shape: doc, label: "Reset email" }
   scrCheck@{ shape: curv-trap, label: "Check your email screen" }
+  noteSame@{ shape: brace, label: "Same message for every email" }
   waitEmail@{ shape: delay, label: "Waits for email" }
   manOpenEmail@{ shape: trap-t, label: "Opens email app" }
   decLink@{ shape: diam, label: "Link still valid?" }
@@ -222,6 +225,7 @@ flowchart TD
   actSend --> decKnown
   decKnown -->|Yes| docReset
   decKnown -->|No| scrCheck
+  noteSame -.- scrCheck
   docReset --> scrCheck
   scrCheck --> waitEmail
   waitEmail --> manOpenEmail

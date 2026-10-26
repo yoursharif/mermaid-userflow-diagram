@@ -2,7 +2,7 @@
 
 Two complete single-flow examples, each followed by its legend. Use them as models for structure, branching and naming: rename the nodes for the product and cut what the request doesn't need.
 
-Read `shapes.md` first. When you cut nodes, cut their legend entries too if no other node uses that shape.
+Read `shapes.md` first. Add notes only when the user asks; the one in Checkout is there to show the syntax. When you cut nodes, cut their legend entries too if no other node uses that shape.
 
 ## Signup
 
@@ -70,7 +70,7 @@ flowchart TD
 
 ## Checkout
 
-Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card.
+Cart to confirmation, with guest checkout, saved address and card, bank check and a declined card. The note on the bank check shows the Curly Brace Note syntax.
 
 ```mermaid
 flowchart TD
@@ -90,6 +90,7 @@ flowchart TD
   actPlace@{ shape: rect, label: "Taps Place order" }
   ioCharge@{ shape: lean-r, label: "Charges card" }
   waitBank@{ shape: delay, label: "Waits for bank check" }
+  noteBank@{ shape: brace, label: "May open the bank app" }
   decPaid@{ shape: diam, label: "Payment approved?" }
   scrDeclined@{ shape: curv-trap, label: "Card declined message" }
   dbOrder@{ shape: cyl, label: "New order record" }
@@ -115,6 +116,7 @@ flowchart TD
   actPlace --> ioCharge
   ioCharge --> waitBank
   waitBank --> decPaid
+  noteBank -.- waitBank
   decPaid -->|No| scrDeclined
   decPaid -->|Yes| dbOrder
   scrDeclined --> scrPayment
@@ -137,6 +139,7 @@ flowchart TD
   lgDatabase@{ shape: cyl, label: "Database: saved records" }
   lgDocument@{ shape: doc, label: "Document: email, receipt or file" }
   lgMerge@{ shape: flip-tri, label: "Merge: two paths rejoin" }
+  lgCurlyBraceNote@{ shape: brace, label: "Curly Brace Note: comment on a node" }
 
   lgTerminator ~~~ lgDecision
   lgDisplay ~~~ lgManualInput
@@ -147,4 +150,5 @@ flowchart TD
   lgPreparation ~~~ lgDatabase
   lgDelay ~~~ lgDocument
   lgDataIO ~~~ lgMerge
+  lgDatabase ~~~ lgCurlyBraceNote
 ```
